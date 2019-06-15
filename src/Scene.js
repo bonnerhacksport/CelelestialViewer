@@ -28,6 +28,7 @@ export const createScene = (
       planetMeshes.push(planetMesh);
       scene.add( planetMesh );
     })
+    planetMeshes.pop();
 
     
     trajectories.forEach((bodyTrajectories)=>{

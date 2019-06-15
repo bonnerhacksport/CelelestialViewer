@@ -54,7 +54,7 @@ const fakeBodies = [
 
 const basicPath = '/planets/hires';
 const extension = '.jpg';
-export const mockData = {timestamps: fakeTimeStamps, bodies: kindaReal.bodies};
+export const mockData = {timestamps: fakeTimeStamps, bodies: realData.bodies};
 
 
 export const planetRadiuses = {
