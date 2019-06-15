@@ -77,11 +77,6 @@ export const ThreeCanvas = ({timestamps, planets, bodies}) => {
     setDimensions(ref.current.getBoundingClientRect());
   }, [ref]);
 
-  function valuetext(value) {
-    return `${value}°C`;
-  }
-
-
   return (
     <div>
       <Container key='canvas' ref={ref}/>
