@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import OrbitControlsAux from 'three-orbit-controls';
 const OrbitControls = OrbitControlsAux(THREE);
+export const factor = 10;
 
 export const createScene = (
   dimensions={height: window.innerHeight, width: window.innerWidth},
@@ -8,6 +9,7 @@ export const createScene = (
   trajectories = [],
   )=>{
   let camera, scene, renderer;
+  const planetMeshes = [];
   init();
   animate();
   function init() {
@@ -17,16 +19,18 @@ export const createScene = (
     renderer = new THREE.WebGLRenderer();
 
     const planetFactor = 60268;
-    // Object.keys(planets).forEach((planetName)=> {
-    //   const planet = planets[planetName];
-    //   var texture = new THREE.TextureLoader().load( planet.texture );
-    //   var geometry = new THREE.SphereBufferGeometry( planet.radius / planetFactor, 32, 32 );
-    //   var material = new THREE.MeshBasicMaterial( { map: texture } );
-    //   const planetMesh = new THREE.Mesh( geometry, material );
-    //   scene.add( planetMesh );
-    // })
+    Object.keys(planets).forEach((planetName)=> {
+      const planet = planets[planetName];
+      var texture = new THREE.TextureLoader().load( planet.texture );
+      var geometry = new THREE.SphereBufferGeometry( planet.radius / planetFactor, 32, 32 );
+      var material = new THREE.MeshBasicMaterial( { map: texture } );
+      const planetMesh = new THREE.Mesh( geometry, material );
+      planetMeshes.push(planetMesh);
+      scene.add( planetMesh );
+    })
+    //planetMeshes.pop();
 
-    const factor = 10;
+    
     trajectories.forEach((bodyTrajectories)=>{
       const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
       const geometry = new THREE.Geometry();
@@ -39,7 +43,7 @@ export const createScene = (
     });
 
     // Setting up controllers 
-    const controls = new OrbitControls( camera, renderer.domElement );
+    new OrbitControls( camera, renderer.domElement );
 
 
 
@@ -52,5 +56,5 @@ export const createScene = (
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
   }
-  return renderer;
+  return { renderer, planetMeshes};
 }

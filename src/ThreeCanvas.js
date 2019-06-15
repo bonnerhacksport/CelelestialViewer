@@ -1,6 +1,6 @@
 import React, {useRef, useLayoutEffect, useEffect, useState} from 'react';
 import styled from '@emotion/styled'
-import {createScene} from './Scene';
+import {createScene, factor} from './Scene';
 import Slider from '@material-ui/lab/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -49,18 +49,28 @@ function ValueLabelComponent(props) {
   );
 }
 
-
-
+let planetMeshes = [];
 export const ThreeCanvas = ({timestamps, planets, bodies}) => {
   const ref = useRef();
   const [dimensions, setDimensions] = useState({})
+  const [currentTimeStamp, setCurrentTimeStamp] = useState(timestamps[0]);
+  useEffect(()=>{
+    debugger;
+    planetMeshes.forEach((mesh, index)=>{
+      const position = bodies[index].positions[currentTimeStamp];
+      mesh.position.x = position.x * factor;
+      mesh.position.y = position.y * factor;
+      mesh.position.z = position.z * factor;
+    });
+  }, [currentTimeStamp, bodies])
   useEffect(() => {
     const trajectories = bodies.map((body)=>(body.positions));
-    const  renderer = createScene(dimensions, planets, trajectories);
+    const result = createScene(dimensions, planets, trajectories);
+    planetMeshes = result.planetMeshes;
     while (ref.current.childElementCount > 0) {
       ref.current.removeChild(ref.current.children[0]);
     }
-    ref.current.appendChild( renderer.domElement );
+    ref.current.appendChild( result.renderer.domElement );
   }, [dimensions, planets]);
 
   useLayoutEffect(() => {
@@ -82,7 +92,9 @@ export const ThreeCanvas = ({timestamps, planets, bodies}) => {
             valueLabelFormat={(index)=>{return timestamps[index]}}
             max={timestamps.length}
             min={0}
-            
+            onChange={({}, value)=>{
+              setCurrentTimeStamp(value);
+            }}
           />
         </div>
       </SliderContainer>
