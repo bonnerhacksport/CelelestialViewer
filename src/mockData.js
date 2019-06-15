@@ -18,7 +18,6 @@
  */
 
 
- import {EarthTrajectory, MarsTrajectory, kindaReal} from './realData';
  import realData from './data.json';
  console.log(realData);
 const initialDate = new Date('01/01/2018').getTime();
@@ -39,18 +38,6 @@ const generateCirclePoints = (radius, numberSegments) => {
   }
   return segments;
 }
-const fakeBodies = [
-  //{id: 1, alias: 'Mercury', positions: generateCirclePoints(1, fakeTimeStamps.length)},
-  //{id: 2, alias: 'Venus', positions: generateCirclePoints(2, fakeTimeStamps.length)},
-  //{id: 3, alias: 'Earth', positions: EarthTrajectory},
-  {id: 4, alias: 'Mars', positions: MarsTrajectory},
-  //{id: 5, alias: 'Jupiter', positions: generateCirclePoints(5, fakeTimeStamps.length)},
-  //{id: 6, alias: 'Saturn', positions: generateCirclePoints(6, fakeTimeStamps.length)},
-  //{id: 7, alias: 'Uranus', positions: generateCirclePoints(7, fakeTimeStamps.length)},
-  //{id: 8, alias: 'Neptune', positions: generateCirclePoints(8, fakeTimeStamps.length)},
-  //{id: 9, alias: 'Pluto', positions: generateCirclePoints(9, fakeTimeStamps.length)},
-  //{id: 10, alias: 'Sun', positions: generateCirclePoints(0, fakeTimeStamps.length)},
-];
 
 const basicPath = '/planets/hires';
 const lowResPath = '/planets/lowre';
