@@ -19,9 +19,11 @@
 
 
  import {EarthTrajectory, MarsTrajectory, kindaReal} from './realData';
+ import realData from './data.json';
+ console.log(realData);
 const initialDate = new Date('01/01/2018').getTime();
 const fakeTimeStamps = [];
-const numberSegments = 500;
+const numberSegments = 38;
 for (let i = 0; i < numberSegments; i++) {
   fakeTimeStamps.push(initialDate + i * 86400000); // fill it with one day interval
 };
