@@ -58,9 +58,9 @@ export const ThreeCanvas = ({timestamps, planets, bodies}) => {
     debugger;
     planetMeshes.forEach((mesh, index)=>{
       const position = bodies[index].positions[currentTimeStamp];
-      mesh.translateX(position.x * factor);
-      mesh.translateY(position.y * factor);
-      mesh.translateZ(position.z * factor);
+      mesh.position.x = position.x * factor;
+      mesh.position.y = position.y * factor;
+      mesh.position.z = position.z * factor;
     });
   }, [currentTimeStamp, bodies])
   useEffect(() => {
